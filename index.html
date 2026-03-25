@@ -58,4 +58,69 @@
         <div class="window" id="main-win">
             <div class="content">
                 <span style="color: #448800; font-weight: bold; letter-spacing: 4px; font-size: 0.9rem; margin-bottom: 15px;">AERO KERNEL 2024.1</span>
-                <h1>Happy Birthday, <br><span style="c
+                <h1>Happy Birthday, <br><span style="color: #009dff;">Mom!</span></h1>
+                <p style="color: #003355; font-size: 1.3rem; margin-top: 15px;">Optimizing the world's best mother...</p>
+                <button class="aqua-btn" id="start-btn" onclick="startExperience()">INITIALIZE PARTY.exe</button>
+                <div class="player-status">
+                    <div style="font-size: 13px; font-weight: bold; color: #004d7a; display: flex; justify-content: space-between;">
+                        <span>🎵 Mom's Theme</span>
+                        <span id="status-label">READY</span>
+                    </div>
+                    <div class="progress-bg"><div class="progress-fill" id="fill"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const music = document.getElementById('bg-music');
+        const statusLabel = document.getElementById('status-label');
+        const fill = document.getElementById('fill');
+
+        function startExperience() {
+            document.getElementById('start-btn').innerText = "SYSTEM ACTIVE";
+            statusLabel.innerText = "LOADING...";
+
+            music.play().then(() => {
+                statusLabel.innerText = "PLAYING";
+                statusLabel.style.color = "#448800";
+            }).catch(e => {
+                statusLabel.innerText = "CLICK AGAIN";
+                statusLabel.style.color = "red";
+            });
+
+            for(let i=0; i<60; i++) setTimeout(() => spawnBubble(), i * 40);
+            
+            const f = document.createElement('div');
+            f.style.cssText = "position:fixed;top:0;left:0;width:100%;height:100%;background:white;z-index:2000;opacity:0.8;";
+            document.body.appendChild(f);
+            gsap.to(f, { opacity: 0, duration: 1.5, onComplete: () => f.remove() });
+        }
+
+        music.ontimeupdate = () => {
+            if (music.duration) {
+                fill.style.width = (music.currentTime / music.duration) * 100 + "%";
+            }
+        };
+
+        function spawnBubble() {
+            const p = document.createElement('div');
+            p.className = 'bubble';
+            const s = Math.random() * 50 + 10 + 'px';
+            p.style.width = s; p.style.height = s;
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.top = '110vh';
+            document.getElementById('particle-field').appendChild(p);
+            gsap.to(p, { y: '-120vh', x: '+=150', duration: Math.random() * 6 + 4, onComplete: () => p.remove() });
+        }
+
+        const win = document.getElementById('main-win');
+        document.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth / 2 - e.pageX) / 45;
+            const y = (window.innerHeight / 2 - e.pageY) / 45;
+            gsap.to(win, { rotationY: x, rotationX: -y, duration: 0.7 });
+        });
+        setInterval(() => spawnBubble(), 2000);
+    </script>
+</body>
+</html>
