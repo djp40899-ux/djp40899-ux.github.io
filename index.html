@@ -4,189 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Mom! | Aero OS Pro</title>
+    <link rel="stylesheet" href="style.css">
     <!-- Animation Engine -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <style>
-        /* --- CORE AERO DESIGN SYSTEM --- */
-        :root {
-            --sky: #0081d3;
-            --sky-light: #34ccff;
-            --grass: #76b900;
-            --grass-dark: #2d5a27;
-            --aqua-btn: linear-gradient(to bottom, #7ddfff 0%, #35b3ff 45%, #0080ff 50%, #005fcc 100%);
-            --glass: rgba(255, 255, 255, 0.3);
-        }
-
-        body, html {
-            margin: 0; padding: 0;
-            width: 100%; height: 100%;
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            overflow: hidden;
-            background: #fff;
-        }
-
-        /* --- LAYERED BACKGROUND (FRUTIGER WORLD) --- */
-        .world {
-            position: fixed;
-            width: 100%; height: 100%;
-            background: linear-gradient(to bottom, var(--sky) 0%, var(--sky-light) 40%, #fff 50%, var(--grass) 51%, var(--grass-dark) 100%);
-            z-index: -5;
-        }
-
-        .sun-flare {
-            position: absolute;
-            top: -10%; right: 5%;
-            width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
-            filter: blur(30px);
-            pointer-events: none;
-        }
-
-        /* --- THE GLASS DESKTOP --- */
-        .desktop {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            perspective: 1200px;
-        }
-
-        .window {
-            width: 850px;
-            height: 520px;
-            background: var(--glass);
-            backdrop-filter: blur(25px) saturate(150%);
-            -webkit-backdrop-filter: blur(25px) saturate(150%);
-            border: 2px solid rgba(255, 255, 255, 0.6);
-            border-radius: 20px;
-            box-shadow: 0 40px 80px rgba(0,0,0,0.2), inset 0 0 30px rgba(255,255,255,0.3);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            position: relative;
-            transform-style: preserve-3d;
-        }
-
-        .title-bar {
-            height: 35px;
-            background: rgba(255,255,255,0.4);
-            border-bottom: 1px solid rgba(255,255,255,0.2);
-            padding: 0 15px;
-            display: flex;
-            align-items: center;
-            font-size: 13px;
-            font-weight: bold;
-            color: #004d7a;
-        }
-
-        .content {
-            display: flex;
-            flex: 1;
-            padding: 40px;
-        }
-
-        /* --- AERO SKEUOMORPHISM --- */
-        .photo-pane {
-            width: 160px; height: 160px;
-            background: white;
-            border: 6px solid white;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            transform: rotate(-3deg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            color: #888;
-            margin-bottom: 30px;
-        }
-
-        h1 {
-            font-size: 4rem;
-            margin: 0;
-            color: #004d7a;
-            line-height: 0.9;
-            text-shadow: 0 2px 10px rgba(255,255,255,0.8);
-        }
-
-        .aqua-btn {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 15px 45px;
-            background: var(--aqua-btn);
-            border: 1px solid #004488;
-            border-radius: 50px;
-            color: white;
-            font-weight: bold;
-            font-size: 1.2rem;
-            box-shadow: 0 10px 20px rgba(0,80,255,0.2), inset 0 2px 2px white;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .aqua-btn:hover {
-            transform: scale(1.05) translateY(-2px);
-            filter: brightness(1.1);
-        }
-
-        /* --- MEDIA PLAYER WIDGET --- */
-        .player {
-            position: absolute;
-            bottom: 100px; right: 5%;
-            width: 280px;
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.5);
-            border-radius: 15px;
-            padding: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            z-index: 100;
-        }
-
-        .player-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-        .album-art { width: 45px; height: 45px; background: var(--aqua-btn); border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
-        
-        .progress-bg { height: 6px; background: rgba(0,0,0,0.1); border-radius: 3px; overflow: hidden; margin: 10px 0; }
-        .progress-fill { width: 0%; height: 100%; background: #44ccff; box-shadow: 0 0 10px #44ccff; }
-
-        .play-btn {
-            width: 30px; height: 30px; border-radius: 50%; border: none;
-            background: var(--aqua-btn); color: white; cursor: pointer;
-        }
-
-        /* --- TASKBAR --- */
-        .taskbar {
-            position: fixed;
-            bottom: 0; width: 100%; height: 45px;
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(15px);
-            border-top: 1px solid rgba(255,255,255,0.3);
-            display: flex;
-            align-items: center;
-            padding: 0 20px;
-            z-index: 1000;
-        }
-
-        .start-orb {
-            width: 35px; height: 35px;
-            background: radial-gradient(circle, #fff, #44ccff, #005fcc);
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(255,255,255,0.8);
-            cursor: pointer;
-        }
-
-        /* --- PARTICLES --- */
-        .bubble { position: absolute; border-radius: 50%; pointer-events: none; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(255,255,255,0.1)); border: 1px solid rgba(255,255,255,0.3); }
-        .butterfly { position: absolute; font-size: 25px; pointer-events: none; }
-
-    </style>
 </head>
 <body>
 
     <div class="world"><div class="sun-flare"></div></div>
     <div id="particle-field"></div>
 
-    <!-- Music (Replace with her song) -->
+    <!-- AUDIO ELEMENT -->
+    <!-- Swap the SRC URL below with a link to her favorite song MP3 -->
     <audio id="bg-music" loop>
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
@@ -196,15 +24,18 @@
         <div class="window" id="main-win">
             <div class="title-bar">Mom_Portfolio_Legacy.exe</div>
             <div class="content">
-                <div style="width: 200px;">
-                    <div class="photo-pane">📷 ADD PHOTO</div>
-                    <p style="color: #004d7a; font-size: 14px; font-weight: bold;">User: Best Mom<br>Status: Online</p>
+                <div class="sidebar">
+                    <div class="photo-pane">
+                        <!-- Replace this with <img src="mom.jpg"> later -->
+                        <span>📷 PHOTO</span>
+                    </div>
+                    <p class="user-status">User: Best Mom<br>Status: Online</p>
                 </div>
-                <div style="flex: 1; padding-left: 40px;">
-                    <span style="color: #76b900; font-weight: bold; letter-spacing: 2px;">OPTIMIZED FOR LOVE</span>
-                    <h1>Happy Birthday, <br><span style="color: #0080ff;">Mom!</span></h1>
-                    <p style="color: #003355; font-size: 1.1rem; margin-top: 15px;">
-                        The system has detected a <b>Legendary Birthday event</b>. <br>
+                <div class="main-text">
+                    <span class="system-tag">OPTIMIZED FOR LOVE</span>
+                    <h1>Happy Birthday, <br><span class="blue-text">Mom!</span></h1>
+                    <p class="description">
+                        System analysis complete. <br>
                         Running <i>happiness.exe</i>... <br>
                         Current Love Levels: <b>Infinite</b>
                     </p>
@@ -213,71 +44,31 @@
             </div>
         </div>
 
-        <!-- Music Widget -->
+        <!-- THE MUSIC WIDGET -->
         <div class="player">
+            <div class="player-gloss"></div>
             <div class="player-header">
                 <div class="album-art">🎵</div>
-                <div>
-                    <div style="font-size: 12px; font-weight: bold; color: #004d7a;">Mom's Theme</div>
-                    <div style="font-size: 10px; color: #0080ff;">Aero Audio v2.0</div>
+                <div class="track-info">
+                    <div class="track-name">Mom's Theme</div>
+                    <div class="artist-name">Aero Audio v2.0</div>
                 </div>
             </div>
-            <div class="progress-bg"><div class="progress-fill" id="track-progress"></div></div>
-            <button class="play-btn" onclick="toggleMusic()" id="btn-play">▶</button>
+            <div class="progress-bg">
+                <div class="progress-fill" id="track-progress"></div>
+            </div>
+            <div class="controls">
+                <button class="play-btn" onclick="toggleMusic()" id="btn-play">▶</button>
+            </div>
         </div>
     </div>
 
     <!-- Taskbar -->
     <div class="taskbar">
         <div class="start-orb"></div>
-        <div style="margin-left: auto; color: #004d7a; font-weight: bold; font-size: 12px;">SYSTEM TIME: 2024.0</div>
+        <div class="system-time">SYSTEM TIME: 2024.0</div>
     </div>
 
-    <script>
-        // --- 3D TILT EFFECT ---
-        const win = document.getElementById('main-win');
-        document.addEventListener('mousemove', (e) => {
-            const x = (window.innerWidth / 2 - e.pageX) / 40;
-            const y = (window.innerHeight / 2 - e.pageY) / 40;
-            gsap.to(win, { rotationY: x, rotationX: -y, duration: 0.5 });
-        });
-
-        // --- PARTICLE SYSTEM ---
-        const field = document.getElementById('particle-field');
-        function spawn(type) {
-            const p = document.createElement('div');
-            p.className = type;
-            if(type === 'bubble') {
-                const s = Math.random() * 40 + 10 + 'px';
-                p.style.width = s; p.style.height = s;
-            } else { p.innerHTML = '🦋'; }
-            p.style.left = Math.random() * 100 + 'vw';
-            p.style.top = '110vh';
-            field.appendChild(p);
-            gsap.to(p, { y: '-120vh', x: '+=100', duration: Math.random() * 8 + 5, onComplete: () => p.remove() });
-        }
-        setInterval(() => spawn('bubble'), 1000);
-        setInterval(() => spawn('butterfly'), 4000);
-
-        // --- MUSIC LOGIC ---
-        const track = document.getElementById('bg-music');
-        const fill = document.getElementById('track-progress');
-        function toggleMusic() {
-            if(track.paused) { track.play(); document.getElementById('btn-play').innerText = 'II'; }
-            else { track.pause(); document.getElementById('btn-play').innerText = '▶'; }
-        }
-        track.ontimeupdate = () => { fill.style.width = (track.currentTime / track.duration) * 100 + '%'; };
-
-        // --- CELEBRATE ---
-        function celebrate() {
-            track.play();
-            document.getElementById('btn-play').innerText = 'II';
-            for(let i=0; i<30; i++) setTimeout(() => spawn('bubble'), i * 100);
-            const f = document.createElement('div');
-            f.style.cssText = "position:fixed;top:0;left:0;width:100%;height:100%;background:white;z-index:2000;opacity:0.8;";
-            document.body.appendChild(f);
-            gsap.to(f, { opacity: 0, duration: 1, onComplete: () => f.remove() });
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
