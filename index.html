@@ -3,67 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday, Mom</title>
+    <title>Happy Birthday Mom! | Aero Edition</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Premium Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;800&family=Syncopate:wght@700&display=swap" rel="stylesheet">
-    <!-- Animation Library -->
+    <!-- Humanist Sans-Serif Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;700&family=Open+Sans:wght@300;600&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 <body>
 
-    <!-- Custom Cursor -->
-    <div id="cursor"></div>
-
-    <!-- Animated Background -->
-    <div class="aurora-container">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-    </div>
+    <!-- The Bubble Layer -->
+    <div id="bubble-container"></div>
 
     <main>
-        <!-- HERO SECTION -->
+        <!-- AERO GLASS HERO -->
         <section class="hero">
-            <div class="hero-content">
-                <span class="tagline">Celebrating a Life of Magic</span>
-                <h1 class="reveal-text">THE LEGENDARY <br> <span class="gradient-text">MOM</span></h1>
-                <p class="hero-sub">Creative Director of Our Lives • World-Class Icon • 2024 Edition</p>
-            </div>
-            <div class="scroll-down">Explore the Legacy</div>
-        </section>
-
-        <!-- STATS SECTION (Glass Cards) -->
-        <section class="stats-section">
-            <div class="glass-card" data-speed="1.1">
-                <span class="stat-num">∞</span>
-                <span class="stat-label">Patience Level</span>
-            </div>
-            <div class="glass-card" data-speed="1.3">
-                <span class="stat-num">10k+</span>
-                <span class="stat-label">Lessons Taught</span>
-            </div>
-            <div class="glass-card" data-speed="1.2">
-                <span class="stat-num">Gold</span>
-                <span class="stat-label">Heart Rating</span>
+            <div class="aero-card" id="main-pane">
+                <div class="gloss-shine"></div>
+                <span class="window-label">User: World's Best Mom</span>
+                <div class="hero-content">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3063/3063822.png" class="eco-icon" alt="Leaf">
+                    <h1>Happy Birthday, <span class="blue-glow">Mom</span></h1>
+                    <p>System Version: 2024.Perfect • Status: Online & Loved</p>
+                    
+                    <div class="button-group">
+                        <button class="aqua-btn" onclick="spawnBubbles()">Celebrate.exe</button>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- FLOATING GALLERY PREVIEW -->
-        <section class="gallery-preview">
-            <h2 class="section-header">The Memories</h2>
-            <div class="image-stack">
-                <div class="img-box box-1"><span>📷 PHOTO 1</span></div>
-                <div class="img-box box-2"><span>📷 PHOTO 2</span></div>
-                <div class="img-box box-3"><span>📷 PHOTO 3</span></div>
+        <!-- THE ECO-SYSTEM (STATS) -->
+        <section class="grid-section">
+            <div class="aero-card stat-card">
+                <div class="icon-sphere">❤️</div>
+                <h3>Infinite Love</h3>
+                <p>Uptime: 100% since Day 1</p>
             </div>
-        </section>
-
-        <!-- FINAL CTA -->
-        <section class="final">
-            <h2 class="huge-text">I LOVE YOU</h2>
-            <p>Happy Birthday to the woman who does it all.</p>
+            <div class="aero-card stat-card">
+                <div class="icon-sphere">🥗</div>
+                <h3>Master Chef</h3>
+                <p>Cooking Skill: Legendary</p>
+            </div>
+            <div class="aero-card stat-card">
+                <div class="icon-sphere">☀️</div>
+                <h3>Brightness</h3>
+                <p>Powering our whole family</p>
+            </div>
         </section>
     </main>
 
