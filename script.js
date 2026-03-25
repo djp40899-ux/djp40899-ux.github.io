@@ -1,52 +1,51 @@
-gsap.registerPlugin(ScrollTrigger);
+// Bubble Generator
+const container = document.getElementById('bubble-container');
 
-// Custom Cursor Movement
-const cursor = document.querySelector('#cursor');
+function createBubble() {
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    
+    // Randomize size and position
+    const size = Math.random() * 60 + 20 + 'px';
+    bubble.style.width = size;
+    bubble.style.height = size;
+    bubble.style.left = Math.random() * 100 + 'vw';
+    bubble.style.top = '110vh';
+    
+    container.appendChild(bubble);
+
+    // Animate Upward
+    gsap.to(bubble, {
+        y: '-120vh',
+        x: 'random(-100, 100)',
+        duration: Math.random() * 5 + 5,
+        ease: "none",
+        onComplete: () => bubble.remove()
+    });
+}
+
+// Create initial bubbles
+for(let i=0; i<15; i++) {
+    setTimeout(createBubble, i * 300);
+}
+setInterval(createBubble, 1000);
+
+// "Celebrate" Burst Function
+function spawnBubbles() {
+    for(let i=0; i<30; i++) {
+        setTimeout(createBubble, i * 50);
+    }
+}
+
+// Aero Tilt Effect on Mouse Move
 document.addEventListener('mousemove', (e) => {
-    gsap.to(cursor, {
-        x: e.clientX,
-        y: e.clientY,
-        duration: 0.1
-    });
-});
-
-// Text Reveal Animation
-gsap.from(".reveal-text", {
-    y: 100,
-    opacity: 0,
-    duration: 1.5,
-    ease: "power4.out"
-});
-
-// Parallax Effect for Glass Cards
-gsap.utils.toArray(".glass-card").forEach(card => {
-    gsap.from(card, {
-        scrollTrigger: {
-            trigger: card,
-            start: "top bottom",
-            toggleActions: "play none none reverse"
-        },
-        y: 100,
-        opacity: 0,
-        duration: 1,
-        delay: card.dataset.speed - 1
-    });
-});
-
-// Infinite rotation for blobs
-gsap.to(".blob", {
-    rotate: 360,
-    duration: 20,
-    repeat: -1,
-    ease: "none"
-});
-
-// Hover effect for image boxes
-document.querySelectorAll('.img-box').forEach(box => {
-    box.addEventListener('mouseenter', () => {
-        gsap.to(cursor, { scale: 4, background: "rgba(255,255,255,0.1)" });
-    });
-    box.addEventListener('mouseleave', () => {
-        gsap.to(cursor, { scale: 1, background: "white" });
+    const x = (window.innerWidth / 2 - e.pageX) / 50;
+    const y = (window.innerHeight / 2 - e.pageY) / 50;
+    
+    gsap.to(".aero-card", {
+        rotationY: x,
+        rotationX: -y,
+        duration: 0.5,
+        ease: "power2.out"
     });
 });
