@@ -98,3 +98,101 @@
 
         h1 {
             font-size: 4rem;
+            color: #111;
+            margin: 0;
+            font-weight: 800;
+            text-shadow: 0 2px 4px rgba(255,255,255,0.8);
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: #005588;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        /* The Famous Aqua Button */
+        .aqua-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 40px;
+            background: linear-gradient(to bottom, #44ccff 0%, #0088ff 50%, #0066cc 51%, #00aaff 100%);
+            border: 1px solid #004488;
+            border-radius: 50px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2), inset 0 1px 1px white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .aqua-button:hover {
+            transform: scale(1.05);
+            filter: brightness(1.2);
+        }
+
+        .orb-decoration {
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle at 30% 30%, #fff, #88ddff);
+            border-radius: 50%;
+            display: inline-block;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bubbles -->
+    <div id="bubble-wrap"></div>
+
+    <!-- Animated Fish -->
+    <svg class="fish" viewBox="0 0 100 60">
+        <path d="M10,30 C10,10 50,0 80,30 C50,60 10,50 10,30" fill="#ff9900" />
+        <path d="M80,30 L95,15 L95,45 Z" fill="#ffcc00" />
+        <circle cx="25" cy="25" r="3" fill="white" />
+    </svg>
+
+    <div class="container">
+        <div class="glass-pane">
+            <div class="orb-decoration"></div>
+            <span class="tagline">System Status: Perfect</span>
+            <h1>Happy Birthday, <span style="color: #0077ff;">Mom</span></h1>
+            <p style="color: #333; font-size: 1.2rem; margin-top: 15px;">
+                You are the most incredible person in our universe.<br> 
+                Thank you for making our world so bright.
+            </p>
+            <button class="aqua-button" onclick="celebrate()">Celebrate.exe</button>
+        </div>
+    </div>
+
+    <script>
+        // Create Bubbles Dynamically
+        const wrap = document.getElementById('bubble-wrap');
+        function createBubble() {
+            const b = document.createElement('div');
+            b.className = 'bubble';
+            const size = Math.random() * 40 + 10 + 'px';
+            b.style.width = size;
+            b.style.height = size;
+            b.style.left = Math.random() * 100 + 'vw';
+            b.style.animationDuration = Math.random() * 5 + 5 + 's';
+            wrap.appendChild(b);
+            setTimeout(() => b.remove(), 10000);
+        }
+        setInterval(createBubble, 800);
+
+        function celebrate() {
+            for(let i=0; i<20; i++) {
+                setTimeout(createBubble, i * 50);
+            }
+            alert("A Lifetime of Happiness Initialized! Happy Birthday!");
+        }
+    </script>
+</body>
+</html>
