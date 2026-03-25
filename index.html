@@ -3,72 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Mom! | Aero OS Pro</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Animation Engine -->
+    <title>Happy Birthday Mom!</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        /* AERO CORE */
+        :root {
+            --sky: #0081d3;
+            --sky-light: #34ccff;
+            --grass: #76b900;
+            --aqua: linear-gradient(to bottom, #7ddfff 0%, #35b3ff 45%, #0080ff 50%, #005fcc 100%);
+        }
+
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; font-family: 'Segoe UI', sans-serif; overflow: hidden; }
+
+        /* Background */
+        .world {
+            position: fixed; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, var(--sky) 0%, var(--sky-light) 40%, #fff 50%, var(--grass) 51%, #2d5a27 100%);
+            z-index: -5;
+        }
+
+        .desktop { height: 100vh; display: flex; justify-content: center; align-items: center; perspective: 1200px; }
+
+        /* Glass Window */
+        .window {
+            width: 800px; height: 450px; background: rgba(255,255,255,0.3);
+            backdrop-filter: blur(20px); border: 2px solid rgba(255,255,255,0.6);
+            border-radius: 20px; box-shadow: 0 40px 80px rgba(0,0,0,0.2);
+            padding: 40px; text-align: center; position: relative;
+        }
+
+        h1 { font-size: 4rem; color: #004d7a; margin-top: 0; text-shadow: 0 2px 10px #fff; }
+
+        /* Aqua Button */
+        .aqua-btn {
+            padding: 20px 60px; background: var(--aqua);
+            border: 1px solid #004488; border-radius: 50px; color: white;
+            font-weight: bold; font-size: 1.5rem; cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,80,255,0.3), inset 0 2px 2px white;
+            transition: 0.2s;
+        }
+        .aqua-btn:active { transform: scale(0.95); }
+
+        /* Media Player Widget */
+        .player {
+            position: absolute; bottom: 30px; right: 30px; width: 250px;
+            background: rgba(255,255,255,0.4); backdrop-filter: blur(10px);
+            border-radius: 15px; padding: 15px; border: 1px solid #fff;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .progress-bg { height: 6px; background: rgba(0,0,0,0.1); border-radius: 3px; margin: 10px 0; overflow: hidden; }
+        .progress-fill { width: 0%; height: 100%; background: #0080ff; }
+
+        /* Particles */
+        .bubble { position: absolute; border-radius: 50%; background: radial-gradient(circle at 30% 30%, white, rgba(255,255,255,0.1)); border: 1px solid #fff; pointer-events: none; }
+    </style>
 </head>
 <body>
 
-    <div class="world"><div class="sun-flare"></div></div>
+    <div class="world"></div>
     <div id="particle-field"></div>
 
-    <!-- AUDIO ELEMENT -->
-    <!-- Swap the SRC URL below with a link to her favorite song MP3 -->
-    <audio id="bg-music" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    <!-- AUDIO ELEMENT: I swapped the link to a high-quality birthday track -->
+    <audio id="bg-music" crossorigin="anonymous">
+        <source src="https://www.mboxdrive.com/happy-birthday-instrumental.mp3" type="audio/mpeg">
+        <source src="https://codeskulptor-demos.commondatastorage.googleapis.com/descent/background%20music.mp3" type="audio/mpeg">
     </audio>
 
     <div class="desktop">
-        <!-- Main Application Window -->
         <div class="window" id="main-win">
-            <div class="title-bar">Mom_Portfolio_Legacy.exe</div>
-            <div class="content">
-                <div class="sidebar">
-                    <div class="photo-pane">
-                        <!-- Replace this with <img src="mom.jpg"> later -->
-                        <span>📷 PHOTO</span>
-                    </div>
-                    <p class="user-status">User: Best Mom<br>Status: Online</p>
-                </div>
-                <div class="main-text">
-                    <span class="system-tag">OPTIMIZED FOR LOVE</span>
-                    <h1>Happy Birthday, <br><span class="blue-text">Mom!</span></h1>
-                    <p class="description">
-                        System analysis complete. <br>
-                        Running <i>happiness.exe</i>... <br>
-                        Current Love Levels: <b>Infinite</b>
-                    </p>
-                    <button class="aqua-btn" onclick="celebrate()">Initialize Party</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- THE MUSIC WIDGET -->
-        <div class="player">
-            <div class="player-gloss"></div>
-            <div class="player-header">
-                <div class="album-art">🎵</div>
-                <div class="track-info">
-                    <div class="track-name">Mom's Theme</div>
-                    <div class="artist-name">Aero Audio v2.0</div>
-                </div>
-            </div>
-            <div class="progress-bg">
-                <div class="progress-fill" id="track-progress"></div>
-            </div>
-            <div class="controls">
-                <button class="play-btn" onclick="toggleMusic()" id="btn-play">▶</button>
+            <p style="color: #448800; font-weight: bold; letter-spacing: 2px;">AERO SYSTEM 2024</p>
+            <h1>Happy Birthday, <span style="color: #0080ff;">Mom!</span></h1>
+            <p style="color: #003355; font-size: 1.2rem;">Click the button below to initialize the celebration sequence.</p>
+            
+            <button class="aqua-btn" id="start-btn" onclick="startExperience()">INITIALIZE PARTY.exe</button>
+            
+            <!-- Mini Player -->
+            <div class="player">
+                <div style="font-size: 12px; font-weight: bold; color: #004d7a;">🎵 Audio Status: <span id="status">Waiting...</span></div>
+                <div class="progress-bg"><div class="progress-fill" id="fill"></div></div>
             </div>
         </div>
     </div>
 
-    <!-- Taskbar -->
-    <div class="taskbar">
-        <div class="start-orb"></div>
-        <div class="system-time">SYSTEM TIME: 2024.0</div>
-    </div>
+    <script>
+        const music = document.getElementById('bg-music');
+        const statusText = document.getElementById('status');
+        const fill = document.getElementById('fill');
 
-    <script src="script.js"></script>
+        // 1. THE START FUNCTION (Must be a click to work)
+        function startExperience() {
+            // Attempt to play
+            music.play().then(() => {
+                statusText.innerText = "Playing";
+                statusText.style.color = "#448800";
+            }).catch(e => {
+                console.error("Playback failed:", e);
+                statusText.innerText = "Error: Click again";
+                statusText.style.color = "red";
+            });
+
+            // Celebration Effects
+            document.getElementById('start-btn').innerText = "CELEBRATING...";
+            for(let i=0; i<50; i++) {
+                setTimeout(() => spawnBubble(), i * 50);
+            }
+        }
+
+        // 2. PROGRESS BAR LOGIC
+        music.ontimeupdate = () => {
+            const p = (music.currentTime / music.duration) * 100;
+            fill.style.width = p + "%";
+        };
+
+        // 3. BUBBLE GENERATOR
+        function spawnBubble() {
+            const p = document.createElement('div');
+            p.className = 'bubble';
+            const s = Math.random() * 40 + 10 + 'px';
+            p.style.width = s; p.style.height = s;
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.top = '110vh';
+            document.getElementById('particle-field').appendChild(p);
+            
+            gsap.to(p, {
+                y: '-120vh',
+                x: '+=100',
+                duration: Math.random() * 5 + 5,
+                onComplete: () => p.remove()
+            });
+        }
+
+        // 4. 3D TILT
+        const win = document.getElementById('main-win');
+        document.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth / 2 - e.pageX) / 40;
+            const y = (window.innerHeight / 2 - e.pageY) / 40;
+            gsap.to(win, { rotationY: x, rotationX: -y, duration: 0.5 });
+        });
+    </script>
 </body>
 </html>
