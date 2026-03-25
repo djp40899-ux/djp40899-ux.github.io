@@ -1,130 +1,81 @@
 :root {
-    --aero-blue: #00adef;
-    --aero-green: #8cc63f;
-    --glass: rgba(255, 255, 255, 0.4);
-    --border: rgba(255, 255, 255, 0.6);
+    --sky: #0081d3;
+    --sky-light: #34ccff;
+    --grass: #76b900;
+    --aqua-btn: linear-gradient(to bottom, #7ddfff 0%, #35b3ff 45%, #0080ff 50%, #005fcc 100%);
+    --glass: rgba(255, 255, 255, 0.3);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-    /* The Iconic Frutiger Aero Gradient Background */
-    background: radial-gradient(circle at top left, #e1f5fe 0%, #ffffff 40%, #81d4fa 100%);
-    min-height: 100vh;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow-x: hidden;
-    color: #1a3a5a;
+body, html {
+    margin: 0; padding: 0; width: 100%; height: 100%;
+    font-family: 'Segoe UI', sans-serif; overflow: hidden;
 }
 
-/* Floating Bubbles Container */
-#bubble-container {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: 0;
+/* Background World */
+.world {
+    position: fixed; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, var(--sky) 0%, var(--sky-light) 40%, #fff 50%, var(--grass) 51%, #2d5a27 100%);
+    z-index: -5;
 }
 
-.bubble {
-    position: absolute;
-    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(255,255,255,0.1) 60%);
-    border: 1px solid rgba(255,255,255,0.3);
-    border-radius: 50%;
-    box-shadow: inset -5px -5px 10px rgba(0,0,0,0.05);
+.sun-flare {
+    position: absolute; top: -10%; right: 5%; width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+    filter: blur(30px);
 }
 
-/* Aero Glass Styling */
-.aero-card {
-    background: var(--glass);
-    backdrop-filter: blur(15px);
-    border: 1.5px solid var(--border);
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.1), inset 0 0 15px rgba(255,255,255,0.5);
-    position: relative;
-    overflow: hidden;
+/* Glass Window */
+.desktop { height: 100vh; display: flex; justify-content: center; align-items: center; perspective: 1200px; }
+.window {
+    width: 800px; height: 500px; background: var(--glass);
+    backdrop-filter: blur(25px) saturate(150%); border: 2px solid rgba(255, 255, 255, 0.6);
+    border-radius: 20px; box-shadow: 0 40px 80px rgba(0,0,0,0.2);
+    display: flex; flex-direction: column; position: relative;
 }
 
-.gloss-shine {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 50%;
-    background: linear-gradient(to bottom, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 100%);
-    pointer-events: none;
-}
+.title-bar { height: 35px; background: rgba(255,255,255,0.4); padding: 0 15px; display: flex; align-items: center; font-weight: bold; color: #004d7a; }
+.content { display: flex; flex: 1; padding: 40px; }
 
-.window-label {
-    background: rgba(255,255,255,0.3);
-    display: block;
-    padding: 5px 15px;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-bottom: 1px solid var(--border);
-}
-
-/* Hero Section */
-.hero {
-    height: 80vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
-    position: relative;
-}
-
-#main-pane {
-    width: 600px;
-    padding: 40px;
-    text-align: center;
-}
-
-.eco-icon { width: 80px; margin-bottom: 20px; filter: drop-shadow(0 4px 8px rgba(0,173,239,0.3)); }
-
-h1 { font-size: 3rem; margin-bottom: 10px; font-weight: 600; letter-spacing: -1px; }
-.blue-glow { color: var(--aero-blue); text-shadow: 0 0 20px rgba(0,173,239,0.3); }
-
-/* Aqua Button Styling (The "Unbelievable" Look) */
+/* Aqua Button */
 .aqua-btn {
-    margin-top: 30px;
-    padding: 12px 35px;
-    border-radius: 50px;
-    border: 1px solid #007bb0;
-    background: linear-gradient(to bottom, #4fc3f7 0%, #00adef 50%, #0081b3 50%, #00adef 100%);
-    color: white;
-    font-weight: bold;
-    font-size: 1.1rem;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2), inset 0 1px 1px rgba(255,255,255,0.8);
-    transition: transform 0.2s;
+    margin-top: 30px; padding: 15px 45px; background: var(--aqua-btn);
+    border: 1px solid #004488; border-radius: 50px; color: white;
+    font-weight: bold; font-size: 1.2rem; cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0,80,255,0.2), inset 0 2px 2px white;
 }
 
-.aqua-btn:hover {
-    transform: scale(1.05);
-    filter: brightness(1.1);
+/* MUSIC PLAYER WIDGET */
+.player {
+    position: absolute; bottom: 80px; right: 40px; width: 260px;
+    background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.5); border-radius: 15px;
+    padding: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); z-index: 100;
 }
 
-/* Stats Grid */
-.grid-section {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    padding: 50px 10%;
-    z-index: 10;
-    position: relative;
+.player-gloss {
+    position: absolute; top: 0; left: 0; width: 100%; height: 50%;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+    pointer-events: none;
 }
 
-.stat-card {
-    padding: 30px;
-    flex: 1;
-    text-align: center;
+.player-header { display: flex; align-items: center; gap: 10px; }
+.album-art { width: 45px; height: 45px; background: var(--aqua-btn); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+.track-name { font-size: 13px; font-weight: bold; color: #004d7a; }
+.artist-name { font-size: 11px; color: #0080ff; }
+
+.progress-bg { height: 8px; background: rgba(0,0,0,0.1); border-radius: 4px; overflow: hidden; margin: 12px 0; border: 1px solid rgba(255,255,255,0.2); }
+.progress-fill { width: 0%; height: 100%; background: linear-gradient(to right, #44ccff, #a6e22e); box-shadow: 0 0 10px #44ccff; transition: width 0.1s linear; }
+
+.play-btn {
+    width: 35px; height: 35px; border-radius: 50%; border: 1px solid #004488;
+    background: var(--aqua-btn); color: white; cursor: pointer; font-size: 14px;
+    box-shadow: inset 0 1px 2px white;
 }
 
-.icon-sphere {
-    width: 60px; height: 60px;
-    background: white;
-    margin: 0 auto 15px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    box-shadow: inset 0 4px 10px rgba(0,0,0,0.1), 0 4px 10px rgba(0,173,239,0.2);
-}
+/* Taskbar */
+.taskbar { position: fixed; bottom: 0; width: 100%; height: 40px; background: rgba(255,255,255,0.2); backdrop-filter: blur(15px); border-top: 1px solid rgba(255,255,255,0.3); display: flex; align-items: center; padding: 0 20px; }
+.start-orb { width: 30px; height: 30px; background: radial-gradient(circle, #fff, #44ccff, #005fcc); border-radius: 50%; box-shadow: 0 0 8px rgba(255,255,255,0.8); }
+
+/* Particles */
+.bubble { position: absolute; border-radius: 50%; pointer-events: none; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(255,255,255,0.1)); border: 1px solid rgba(255,255,255,0.3); }
+.butterfly { position: absolute; font-size: 25px; pointer-events: none; }
