@@ -6,7 +6,6 @@
     <title>Happy Birthday Mom!</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
-        /* AERO CORE */
         :root {
             --sky: #0081d3;
             --sky-light: #34ccff;
@@ -14,113 +13,144 @@
             --aqua: linear-gradient(to bottom, #7ddfff 0%, #35b3ff 45%, #0080ff 50%, #005fcc 100%);
         }
 
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; font-family: 'Segoe UI', sans-serif; overflow: hidden; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; font-family: 'Segoe UI', Tahoma, sans-serif; overflow: hidden; }
 
-        /* Background */
+        /* FRUTIGER AERO WORLD BACKGROUND */
         .world {
             position: fixed; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, var(--sky) 0%, var(--sky-light) 40%, #fff 50%, var(--grass) 51%, #2d5a27 100%);
+            background: linear-gradient(to bottom, #0078d7 0%, #34ccff 40%, #ffffff 50%, #b3e600 51%, #44cc00 100%);
             z-index: -5;
+        }
+
+        /* The Sun Flare */
+        .sun {
+            position: absolute; top: -5%; right: 10%; width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 70%);
+            filter: blur(20px); z-index: -4;
         }
 
         .desktop { height: 100vh; display: flex; justify-content: center; align-items: center; perspective: 1200px; }
 
-        /* Glass Window */
+        /* THE VISTA WINDOW */
         .window {
-            width: 800px; height: 450px; background: rgba(255,255,255,0.3);
-            backdrop-filter: blur(20px); border: 2px solid rgba(255,255,255,0.6);
-            border-radius: 20px; box-shadow: 0 40px 80px rgba(0,0,0,0.2);
-            padding: 40px; text-align: center; position: relative;
+            width: 85%; max-width: 800px; height: 480px; 
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border: 2.5px solid rgba(255, 255, 255, 0.7);
+            border-radius: 25px; 
+            box-shadow: 0 40px 100px rgba(0,0,0,0.2), inset 0 0 30px rgba(255,255,255,0.4);
+            display: flex; flex-direction: column; overflow: hidden; position: relative;
         }
 
-        h1 { font-size: 4rem; color: #004d7a; margin-top: 0; text-shadow: 0 2px 10px #fff; }
+        /* Glossy Highlight on top of the window */
+        .window::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 50%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
+            pointer-events: none; z-index: 1;
+        }
 
-        /* Aqua Button */
+        .content { padding: 50px; text-align: center; z-index: 2; flex: 1; }
+
+        h1 { font-size: 4rem; color: #004d7a; margin: 0; font-weight: 800; text-shadow: 0 2px 15px #fff; }
+
+        /* THE AQUA BUTTON */
         .aqua-btn {
-            padding: 20px 60px; background: var(--aqua);
-            border: 1px solid #004488; border-radius: 50px; color: white;
-            font-weight: bold; font-size: 1.5rem; cursor: pointer;
-            box-shadow: 0 10px 20px rgba(0,80,255,0.3), inset 0 2px 2px white;
-            transition: 0.2s;
+            margin-top: 40px; padding: 20px 60px; 
+            background: var(--aqua);
+            border: 1px solid #004488; border-radius: 60px; 
+            color: white; font-weight: bold; font-size: 1.6rem; 
+            cursor: pointer; position: relative;
+            box-shadow: 0 10px 25px rgba(0,80,255,0.4), inset 0 2px 3px white;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+
+        .aqua-btn:hover { transform: scale(1.05) translateY(-5px); filter: brightness(1.1); }
         .aqua-btn:active { transform: scale(0.95); }
 
-        /* Media Player Widget */
-        .player {
-            position: absolute; bottom: 30px; right: 30px; width: 250px;
-            background: rgba(255,255,255,0.4); backdrop-filter: blur(10px);
-            border-radius: 15px; padding: 15px; border: 1px solid #fff;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        /* Player Stats Card */
+        .player-status {
+            background: rgba(255,255,255,0.4); border-radius: 15px;
+            padding: 10px 20px; width: 250px; margin: 20px auto;
+            border: 1px solid rgba(255,255,255,0.5);
         }
-        .progress-bg { height: 6px; background: rgba(0,0,0,0.1); border-radius: 3px; margin: 10px 0; overflow: hidden; }
-        .progress-fill { width: 0%; height: 100%; background: #0080ff; }
 
-        /* Particles */
-        .bubble { position: absolute; border-radius: 50%; background: radial-gradient(circle at 30% 30%, white, rgba(255,255,255,0.1)); border: 1px solid #fff; pointer-events: none; }
+        .progress-bg { height: 8px; background: rgba(0,0,0,0.1); border-radius: 4px; overflow: hidden; margin-top: 10px; }
+        .progress-fill { width: 0%; height: 100%; background: #44ccff; box-shadow: 0 0 10px #44ccff; }
+
+        .bubble { position: absolute; border-radius: 50%; background: radial-gradient(circle at 30% 30%, white, rgba(255,255,255,0.1)); border: 1px solid #fff; pointer-events: none; z-index: 10; }
     </style>
 </head>
 <body>
 
     <div class="world"></div>
+    <div class="sun"></div>
     <div id="particle-field"></div>
 
-    <!-- AUDIO ELEMENT: I swapped the link to a high-quality birthday track -->
-    <audio id="bg-music" crossorigin="anonymous">
-        <source src="https://www.mboxdrive.com/happy-birthday-instrumental.mp3" type="audio/mpeg">
+    <!-- AUDIO SETUP -->
+    <!-- Attempt 1: Reliable demo sound | Attempt 2: Local file (Recommended) -->
+    <audio id="bg-music">
+        <source src="music.mp3" type="audio/mpeg">
         <source src="https://codeskulptor-demos.commondatastorage.googleapis.com/descent/background%20music.mp3" type="audio/mpeg">
     </audio>
 
     <div class="desktop">
         <div class="window" id="main-win">
-            <p style="color: #448800; font-weight: bold; letter-spacing: 2px;">AERO SYSTEM 2024</p>
-            <h1>Happy Birthday, <span style="color: #0080ff;">Mom!</span></h1>
-            <p style="color: #003355; font-size: 1.2rem;">Click the button below to initialize the celebration sequence.</p>
-            
-            <button class="aqua-btn" id="start-btn" onclick="startExperience()">INITIALIZE PARTY.exe</button>
-            
-            <!-- Mini Player -->
-            <div class="player">
-                <div style="font-size: 12px; font-weight: bold; color: #004d7a;">🎵 Audio Status: <span id="status">Waiting...</span></div>
-                <div class="progress-bg"><div class="progress-fill" id="fill"></div></div>
+            <div class="content">
+                <p style="color: #448800; font-weight: bold; letter-spacing: 3px; font-size: 0.8rem; margin-bottom: 10px;">AERO SYSTEM PRO // 2024</p>
+                <h1>Happy Birthday, <span style="color: #009dff;">Mom!</span></h1>
+                <p style="color: #003355; font-size: 1.2rem; margin-top: 10px;">The world's most optimized mother.</p>
+                
+                <button class="aqua-btn" id="start-btn" onclick="startExperience()">INITIALIZE PARTY.exe</button>
+                
+                <div class="player-status">
+                    <div style="font-size: 12px; font-weight: bold; color: #004d7a; display: flex; justify-content: space-between;">
+                        <span>AUDIO STREAM</span>
+                        <span id="status-label">READY</span>
+                    </div>
+                    <div class="progress-bg"><div class="progress-fill" id="fill"></div></div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
         const music = document.getElementById('bg-music');
-        const statusText = document.getElementById('status');
+        const statusLabel = document.getElementById('status-label');
         const fill = document.getElementById('fill');
 
-        // 1. THE START FUNCTION (Must be a click to work)
         function startExperience() {
-            // Attempt to play
+            // Update UI
+            document.getElementById('start-btn').innerText = "SYSTEM ACTIVE";
+            statusLabel.innerText = "LOADING...";
+
+            // Play Music
             music.play().then(() => {
-                statusText.innerText = "Playing";
-                statusText.style.color = "#448800";
+                statusLabel.innerText = "PLAYING";
+                statusLabel.style.color = "#448800";
             }).catch(e => {
-                console.error("Playback failed:", e);
-                statusText.innerText = "Error: Click again";
-                statusText.style.color = "red";
+                statusLabel.innerText = "ERROR - CLICK AGAIN";
+                statusLabel.style.color = "red";
+                console.log("Audio failed. Browsers require a strong click.", e);
             });
 
-            // Celebration Effects
-            document.getElementById('start-btn').innerText = "CELEBRATING...";
-            for(let i=0; i<50; i++) {
-                setTimeout(() => spawnBubble(), i * 50);
+            // Trigger Bubbles
+            for(let i=0; i<60; i++) {
+                setTimeout(() => spawnBubble(), i * 40);
             }
         }
 
-        // 2. PROGRESS BAR LOGIC
         music.ontimeupdate = () => {
-            const p = (music.currentTime / music.duration) * 100;
-            fill.style.width = p + "%";
+            if (music.duration) {
+                const p = (music.currentTime / music.duration) * 100;
+                fill.style.width = p + "%";
+            }
         };
 
-        // 3. BUBBLE GENERATOR
         function spawnBubble() {
             const p = document.createElement('div');
             p.className = 'bubble';
-            const s = Math.random() * 40 + 10 + 'px';
+            const s = Math.random() * 50 + 10 + 'px';
             p.style.width = s; p.style.height = s;
             p.style.left = Math.random() * 100 + 'vw';
             p.style.top = '110vh';
@@ -128,18 +158,19 @@
             
             gsap.to(p, {
                 y: '-120vh',
-                x: '+=100',
-                duration: Math.random() * 5 + 5,
+                x: '+=150',
+                duration: Math.random() * 6 + 4,
+                ease: "power1.out",
                 onComplete: () => p.remove()
             });
         }
 
-        // 4. 3D TILT
+        // 3D TILT EFFECT
         const win = document.getElementById('main-win');
         document.addEventListener('mousemove', (e) => {
             const x = (window.innerWidth / 2 - e.pageX) / 40;
             const y = (window.innerHeight / 2 - e.pageY) / 40;
-            gsap.to(win, { rotationY: x, rotationX: -y, duration: 0.5 });
+            gsap.to(win, { rotationY: x, rotationX: -y, duration: 0.6 });
         });
     </script>
 </body>
