@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Mom! | Bliss Edition</title>
-    <!-- Animation Engine -->
+    <title>Happy Birthday Mom!</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
+        /* FORCE THE COLORS */
         :root {
-            --sky-blue: #0081d3;
-            --sky-light: #34ccff;
-            --grass-bright: #b3e600;
-            --grass-deep: #44cc00;
+            --sky: #0072ff;
+            --horizon: #ffffff;
+            --grass: #4db300;
             --aqua: linear-gradient(to bottom, #7ddfff 0%, #35b3ff 45%, #0080ff 50%, #005fcc 100%);
         }
 
@@ -19,155 +18,109 @@
 
         body, html { 
             width: 100%; height: 100%; 
-            font-family: 'Segoe UI', Tahoma, sans-serif; 
-            overflow: hidden; 
-            background: var(--sky-blue);
+            font-family: 'Segoe UI', sans-serif; 
+            overflow: hidden;
+            /* HARDCODED SKY */
+            background: linear-gradient(to bottom, var(--sky) 0%, #00c6ff 45%, var(--horizon) 50%, var(--grass) 50%, #2d5a27 100%);
         }
 
-        /* --- THE FRUTIGER WORLD BACKGROUND --- */
-        .world-container {
-            position: fixed; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, #0078d7 0%, #34ccff 50%);
-            z-index: -5;
-        }
-
-        /* The Iconic Green Hill */
+        /* THE GREEN HILL (Skeuomorphic) */
         .hill {
-            position: absolute;
-            bottom: -15%; left: -25%;
-            width: 150%; height: 65%;
-            background: radial-gradient(circle at 50% 0%, var(--grass-bright) 0%, var(--grass-deep) 70%);
-            border-radius: 100% 100% 0 0;
-            z-index: -4;
-            box-shadow: inset 0 20px 50px rgba(255,255,255,0.4);
+            position: fixed;
+            bottom: -20%; left: -10%;
+            width: 120%; height: 70%;
+            background: radial-gradient(circle at 50% 0%, #8cc63f 0%, #4db300 70%);
+            border-radius: 50% 50% 0 0;
+            z-index: -1;
+            box-shadow: inset 0 30px 60px rgba(255,255,255,0.4);
         }
 
-        /* The Sun Flare */
-        .sun {
-            position: absolute; top: -5%; right: 10%; width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 70%);
-            filter: blur(20px); z-index: -3;
-        }
-
-        /* --- THE DESKTOP --- */
+        /* DESKTOP VIEW */
         .desktop { 
             height: 100vh; width: 100vw;
             display: flex; justify-content: center; align-items: center; 
-            perspective: 2000px; 
+            perspective: 1000px;
             z-index: 10;
         }
 
-        /* THE GLASS VISTA WINDOW */
+        /* CLEARER GLASS WINDOW */
         .window {
-            width: 90%; max-width: 850px; 
-            min-height: 550px;
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(40px) saturate(200%);
-            -webkit-backdrop-filter: blur(40px) saturate(200%);
-            border: 2px solid rgba(255, 255, 255, 0.7);
-            border-radius: 40px; 
-            box-shadow: 0 60px 120px rgba(0,0,0,0.3), inset 0 0 50px rgba(255,255,255,0.4);
+            width: 90%; max-width: 750px; 
+            min-height: 480px;
+            /* Reduced opacity so you can see the background behind it */
+            background: rgba(255, 255, 255, 0.2); 
+            backdrop-filter: blur(25px) saturate(200%);
+            -webkit-backdrop-filter: blur(25px) saturate(200%);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            border-radius: 30px; 
+            box-shadow: 0 40px 100px rgba(0,0,0,0.3);
             display: flex; flex-direction: column; 
             justify-content: center; align-items: center;
-            position: relative;
-            transform-style: preserve-3d;
-            padding: 60px 40px;
+            padding: 40px;
             text-align: center;
         }
 
-        /* High-Gloss Shine */
-        .window::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 50%;
-            background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
-            pointer-events: none; border-radius: 40px 40px 0 0;
-        }
-
-        .system-tag { 
-            color: #1d4d00; font-weight: bold; letter-spacing: 5px; 
-            font-size: 0.8rem; margin-bottom: 20px; text-transform: uppercase;
-            text-shadow: 0 1px 2px rgba(255,255,255,0.5);
-        }
-
         h1 { 
-            font-size: clamp(3rem, 10vw, 5.5rem); 
-            color: #004d7a; 
+            font-size: clamp(2.5rem, 8vw, 5rem); 
+            color: #003366; 
             font-weight: 800; 
-            text-shadow: 0 2px 25px rgba(255,255,255,1);
-            line-height: 0.95;
-            margin-bottom: 20px;
+            text-shadow: 0 2px 20px rgba(255,255,255,0.8);
+            margin-bottom: 10px;
         }
-
-        .blue-glow { color: #009dff; text-shadow: 0 0 30px rgba(0,157,255,0.5); }
 
         .sub-text {
-            color: #002b4d; font-size: 1.4rem; font-weight: 400; 
-            margin-bottom: 40px; line-height: 1.4;
-            text-shadow: 0 1px 1px rgba(255,255,255,0.5);
+            color: #002b4d; font-size: 1.2rem; margin-bottom: 30px;
         }
 
-        /* THE AQUA GEL BUTTON */
+        /* ICONIC AQUA BUTTON */
         .aqua-btn {
-            display: inline-block;
-            padding: 22px 70px; 
+            padding: 20px 60px; 
             background: var(--aqua);
             border: 1px solid #004488; 
-            border-radius: 80px; 
-            color: white; font-weight: bold; font-size: 1.8rem; 
+            border-radius: 50px; 
+            color: white; font-weight: bold; font-size: 1.6rem; 
             cursor: pointer;
-            box-shadow: 0 20px 40px rgba(0,80,255,0.5), inset 0 2px 6px white;
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-decoration: none;
-            z-index: 20;
+            box-shadow: 0 15px 30px rgba(0,80,255,0.4), inset 0 2px 4px white;
+            transition: 0.2s;
         }
 
-        .aqua-btn:hover { transform: scale(1.08) translateY(-8px); filter: brightness(1.15); }
-        .aqua-btn:active { transform: scale(0.95); }
+        .aqua-btn:hover { transform: scale(1.05); filter: brightness(1.1); }
 
-        /* THE PLAYER STATUS BAR */
+        /* MINI PLAYER */
         .player-status {
-            background: rgba(255,255,255,0.5); border-radius: 20px;
-            padding: 15px 30px; width: 340px; margin-top: 40px;
-            border: 1px solid rgba(255,255,255,0.7);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            background: rgba(255,255,255,0.4); border-radius: 15px;
+            padding: 12px 20px; width: 280px; margin-top: 30px;
+            border: 1px solid rgba(255,255,255,0.5);
         }
 
-        .progress-bg { height: 12px; background: rgba(0,0,0,0.15); border-radius: 6px; overflow: hidden; margin-top: 10px; border: 1px solid rgba(0,0,0,0.05); }
-        .progress-fill { width: 0%; height: 100%; background: linear-gradient(to right, #44ccff, #a6e22e); box-shadow: 0 0 15px #44ccff; transition: width 0.1s linear; }
+        .progress-bg { height: 8px; background: rgba(0,0,0,0.1); border-radius: 4px; overflow: hidden; margin-top: 8px; }
+        .progress-fill { width: 0%; height: 100%; background: #00d2ff; box-shadow: 0 0 10px #00d2ff; }
 
-        /* PARTICLES */
-        .bubble { position: absolute; border-radius: 50%; background: radial-gradient(circle at 30% 30%, white, rgba(255,255,255,0.1)); border: 1px solid rgba(255,255,255,0.6); pointer-events: none; z-index: 100; }
-        .butterfly { position: absolute; font-size: 40px; pointer-events: none; z-index: 101; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2)); }
-
+        /* BUBBLES */
+        .bubble { position: absolute; border-radius: 50%; background: radial-gradient(circle at 30% 30%, white, rgba(255,255,255,0.1)); border: 1px solid rgba(255,255,255,0.4); pointer-events: none; }
     </style>
 </head>
 <body>
 
-    <!-- BACKGROUND WORLD ELEMENTS -->
-    <div class="world-container">
-        <div class="sun"></div>
-        <div class="hill"></div>
-    </div>
+    <div class="hill"></div>
     <div id="particle-field"></div>
 
-    <!-- AUDIO SOURCE -->
     <audio id="bg-music">
         <source src="https://codeskulptor-demos.commondatastorage.googleapis.com/descent/background%20music.mp3" type="audio/mpeg">
     </audio>
 
     <div class="desktop">
         <div class="window" id="main-win">
-            <div class="system-tag">AERO KERNEL // STATUS: OPTIMIZED</div>
-            
-            <h1>Happy Birthday, <br><span class="blue-glow">Mom!</span></h1>
-            
-            <p class="sub-text">Detected: The world's most incredible mother. <br> Initializing happiness sequence...</p>
+            <p style="color: #2d5a27; font-weight: bold; letter-spacing: 3px; font-size: 0.8rem;">AERO SYSTEM PRO</p>
+            <h1>Happy Birthday, <br><span style="color: #0080ff;">Mom!</span></h1>
+            <p class="sub-text">World's #1 Mother Detected. Initializing...</p>
             
             <button class="aqua-btn" onclick="startExperience()">INITIALIZE PARTY.exe</button>
             
             <div class="player-status">
-                <div style="display: flex; justify-content: space-between; align-items: center; color: #004d7a; font-weight: bold; font-size: 14px;">
-                    <span>🎵 Aero_Core_Theme.wav</span>
-                    <span id="status-tag" style="background:rgba(255,255,255,0.7); padding: 3px 12px; border-radius: 12px; font-size: 10px;">READY</span>
+                <div style="display: flex; justify-content: space-between; font-size: 11px; color: #004d7a; font-weight: bold;">
+                    <span>🎵 Aero_Theme.wav</span>
+                    <span id="status-tag">READY</span>
                 </div>
                 <div class="progress-bg"><div class="progress-fill" id="fill"></div></div>
             </div>
@@ -183,22 +136,16 @@
         function startExperience() {
             music.play().then(() => {
                 statusTag.innerText = "PLAYING";
-                statusTag.style.color = "#2d5a27";
-            }).catch(e => {
-                statusTag.innerText = "TAP TO START";
             });
 
-            // Huge Burst of Aero Particles
-            for(let i=0; i<80; i++) {
-                setTimeout(() => spawn('bubble'), i * 30);
-                if(i % 10 === 0) spawn('butterfly');
+            for(let i=0; i<50; i++) {
+                setTimeout(() => spawnBubble(), i * 40);
             }
 
-            // High-End Flash Effect
             const f = document.createElement('div');
             f.style.cssText = "position:fixed;top:0;left:0;width:100%;height:100%;background:white;z-index:2000;opacity:0.8;";
             document.body.appendChild(f);
-            gsap.to(f, { opacity: 0, duration: 2, onComplete: () => f.remove() });
+            gsap.to(f, { opacity: 0, duration: 1, onComplete: () => f.remove() });
         }
 
         music.ontimeupdate = () => {
@@ -207,38 +154,22 @@
             }
         };
 
-        function spawn(type) {
+        function spawnBubble() {
             const p = document.createElement('div');
-            p.className = type;
-            if(type === 'bubble') {
-                const s = Math.random() * 70 + 20 + 'px';
-                p.style.width = s; p.style.height = s;
-            } else {
-                p.innerHTML = '🦋';
-            }
+            p.className = 'bubble';
+            const s = Math.random() * 50 + 10 + 'px';
+            p.style.width = s; p.style.height = s;
             p.style.left = Math.random() * 100 + 'vw';
             p.style.top = '110vh';
             document.getElementById('particle-field').appendChild(p);
-            
-            gsap.to(p, {
-                y: '-120vh',
-                x: '+=300',
-                rotation: type === 'butterfly' ? 720 : 0,
-                duration: Math.random() * 8 + 6,
-                ease: "none",
-                onComplete: () => p.remove()
-            });
+            gsap.to(p, { y: '-120vh', x: '+=100', duration: Math.random() * 5 + 5, onComplete: () => p.remove() });
         }
 
-        // Mouse 3D Tilt Effect
         document.addEventListener('mousemove', (e) => {
             const x = (window.innerWidth / 2 - e.pageX) / 50;
             const y = (window.innerHeight / 2 - e.pageY) / 50;
-            gsap.to(win, { rotationY: x, rotationX: -y, duration: 1.2 });
+            gsap.to(win, { rotationY: x, rotationX: -y, duration: 1 });
         });
-
-        // Ambient Bubbles
-        setInterval(() => spawn('bubble'), 1500);
     </script>
 </body>
 </html>
