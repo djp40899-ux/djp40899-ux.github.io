@@ -1,0 +1,86 @@
+:root {
+    --bg: #0a0a0a;
+    --text: #ffffff;
+    --accent: #d4af37; /* Gold */
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Inter', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+}
+
+/* Nav Styling */
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 10%;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+}
+.logo { font-weight: 700; letter-spacing: 2px; }
+.nav-links a { 
+    color: var(--text); text-decoration: none; margin-left: 30px; 
+    font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+h1 {
+    font-family: var(--font-serif);
+    font-size: 5rem;
+    line-height: 1.1;
+}
+.highlight { color: var(--accent); }
+.subtitle { margin-top: 20px; font-weight: 300; opacity: 0.7; }
+
+/* Powers Grid */
+.powers-grid {
+    padding: 100px 10%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+}
+.power-card {
+    background: #111;
+    padding: 40px;
+    border: 1px solid #222;
+    transition: 0.4s;
+}
+.power-card:hover { border-color: var(--accent); transform: translateY(-10px); }
+.stat { font-family: var(--font-serif); font-size: 3rem; color: var(--accent); display: block; margin-bottom: 10px; }
+
+/* Timeline */
+.timeline { padding: 100px 10%; text-align: center; }
+.timeline-item { margin: 60px 0; }
+.year { font-family: var(--font-serif); font-size: 2.5rem; color: var(--accent); }
+
+/* Footer */
+.final-message {
+    padding: 150px 10%;
+    text-align: center;
+    background: linear-gradient(to bottom, transparent, #111);
+}
+.celebrate-btn {
+    margin-top: 40px;
+    padding: 15px 40px;
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+.celebrate-btn:hover { background: var(--accent); color: black; }
