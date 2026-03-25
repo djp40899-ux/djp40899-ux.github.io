@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Mom! | Aero Pro</title>
+    <title>Happy Birthday Mom! | Aero OS Pro</title>
+    <!-- Animation Engine -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
         :root {
@@ -19,9 +20,10 @@
             width: 100%; height: 100%; 
             font-family: 'Segoe UI', Tahoma, sans-serif; 
             overflow: hidden; 
+            background: #fff;
         }
 
-        /* THE "BLISS" WORLD BACKGROUND */
+        /* --- THE BLISS WORLD BACKGROUND --- */
         .world {
             position: fixed; width: 100%; height: 100%;
             background: linear-gradient(to bottom, #0078d7 0%, #34ccff 40%, #ffffff 50%, #b3e600 51%, #44cc00 100%);
@@ -30,89 +32,95 @@
 
         .sun-flare {
             position: absolute; top: -5%; right: 10%; width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
-            filter: blur(30px); z-index: -4;
+            background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 70%);
+            filter: blur(40px); z-index: -4;
         }
 
-        /* CENTER STAGE */
+        /* --- THE DESKTOP --- */
         .desktop { 
             height: 100vh; width: 100vw;
             display: flex; justify-content: center; align-items: center; 
-            perspective: 1500px; 
+            perspective: 2000px; 
         }
 
-        /* THE HIGH-GLOSS WINDOW */
+        /* THE GLASS VISTA WINDOW (Fixed to never cut off) */
         .window {
             width: 90%; max-width: 800px; 
-            min-height: 500px;
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(30px) saturate(200%);
-            -webkit-backdrop-filter: blur(30px) saturate(200%);
+            min-height: 550px;
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(35px) saturate(200%);
+            -webkit-backdrop-filter: blur(35px) saturate(200%);
             border: 2px solid rgba(255, 255, 255, 0.8);
-            border-radius: 30px; 
-            box-shadow: 0 50px 100px rgba(0,0,0,0.2), inset 0 0 40px rgba(255,255,255,0.5);
-            display: flex; flex-direction: column; position: relative;
+            border-radius: 40px; 
+            box-shadow: 0 60px 120px rgba(0,0,0,0.25), inset 0 0 40px rgba(255,255,255,0.5);
+            display: flex; flex-direction: column; 
+            justify-content: center; align-items: center;
+            position: relative;
             transform-style: preserve-3d;
-            padding: 40px;
+            padding: 60px 40px;
             text-align: center;
         }
 
-        /* Gloss Shine Top Layer */
+        /* High-Gloss Shine */
         .window::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 50%;
-            background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
-            pointer-events: none; border-radius: 30px 30px 0 0;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.6), transparent);
+            pointer-events: none; border-radius: 40px 40px 0 0;
+        }
+
+        .system-tag { 
+            color: #448800; font-weight: bold; letter-spacing: 5px; 
+            font-size: 0.8rem; margin-bottom: 20px; text-transform: uppercase;
         }
 
         h1 { 
-            font-size: clamp(3rem, 8vw, 5rem); 
+            font-size: clamp(3rem, 10vw, 5.5rem); 
             color: #004d7a; 
             font-weight: 800; 
-            text-shadow: 0 2px 15px rgba(255,255,255,0.9);
-            line-height: 1.1;
-            margin-bottom: 10px;
+            text-shadow: 0 2px 20px rgba(255,255,255,1);
+            line-height: 0.95;
+            margin-bottom: 20px;
         }
 
-        .blue-text { color: #009dff; text-shadow: 0 0 20px rgba(0,157,255,0.3); }
+        .blue-glow { color: #009dff; text-shadow: 0 0 30px rgba(0,157,255,0.4); }
 
         .sub-text {
-            color: #003355; font-size: 1.2rem; font-weight: 400; margin-bottom: 30px;
+            color: #003355; font-size: 1.4rem; font-weight: 400; 
+            margin-bottom: 40px; line-height: 1.4;
         }
 
-        /* THE REAL AQUA GEL BUTTON */
+        /* THE AQUA GEL BUTTON */
         .aqua-btn {
             display: inline-block;
-            padding: 20px 60px; 
+            padding: 22px 70px; 
             background: var(--aqua);
             border: 1px solid #004488; 
-            border-radius: 60px; 
-            color: white; font-weight: bold; font-size: 1.5rem; 
+            border-radius: 80px; 
+            color: white; font-weight: bold; font-size: 1.8rem; 
             cursor: pointer;
-            box-shadow: 0 15px 35px rgba(0,80,255,0.4), inset 0 2px 4px white;
+            box-shadow: 0 20px 40px rgba(0,80,255,0.4), inset 0 2px 5px white;
             transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-decoration: none;
             z-index: 10;
         }
 
-        .aqua-btn:hover { transform: scale(1.05) translateY(-5px); filter: brightness(1.1); }
+        .aqua-btn:hover { transform: scale(1.08) translateY(-8px); filter: brightness(1.15); }
         .aqua-btn:active { transform: scale(0.95); }
 
-        /* THE PLAYER WIDGET */
+        /* THE PLAYER STATUS BAR */
         .player-status {
-            background: rgba(255,255,255,0.4); border-radius: 20px;
-            padding: 15px 25px; width: 320px; margin: 40px auto 0;
+            background: rgba(255,255,255,0.45); border-radius: 20px;
+            padding: 15px 30px; width: 340px; margin-top: 40px;
             border: 1px solid rgba(255,255,255,0.6);
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
-        .progress-bg { height: 10px; background: rgba(0,0,0,0.1); border-radius: 5px; overflow: hidden; margin-top: 10px; border: 1px solid rgba(0,0,0,0.05); }
+        .progress-bg { height: 12px; background: rgba(0,0,0,0.1); border-radius: 6px; overflow: hidden; margin-top: 10px; border: 1px solid rgba(0,0,0,0.05); }
         .progress-fill { width: 0%; height: 100%; background: linear-gradient(to right, #44ccff, #a6e22e); box-shadow: 0 0 15px #44ccff; transition: width 0.1s linear; }
 
         /* PARTICLES */
-        .bubble { position: absolute; border-radius: 50%; background: radial-gradient(circle at 30% 30%, white, rgba(255,255,255,0.1)); border: 1px solid #fff; pointer-events: none; z-index: 10; }
-        .butterfly { position: absolute; font-size: 30px; pointer-events: none; z-index: 11; }
-        
-        .system-label { color: #448800; font-weight: bold; letter-spacing: 5px; font-size: 0.8rem; margin-bottom: 20px; }
+        .bubble { position: absolute; border-radius: 50%; background: radial-gradient(circle at 30% 30%, white, rgba(255,255,255,0.1)); border: 1px solid rgba(255,255,255,0.5); pointer-events: none; z-index: 10; }
+        .butterfly { position: absolute; font-size: 35px; pointer-events: none; z-index: 11; }
 
     </style>
 </head>
@@ -121,25 +129,25 @@
     <div class="world"><div class="sun-flare"></div></div>
     <div id="particle-field"></div>
 
-    <!-- AUDIO SOURCE: Your confirmed working Catbox link -->
+    <!-- AUDIO SOURCE: Using the reliable Google Cloud Link -->
     <audio id="bg-music">
-        <source src="https://files.catbox.moe/aslp4n.mp3" type="audio/mpeg">
+        <source src="https://codeskulptor-demos.commondatastorage.googleapis.com/descent/background%20music.mp3" type="audio/mpeg">
     </audio>
 
     <div class="desktop">
         <div class="window" id="main-win">
-            <div class="system-label">AERO KERNEL v2.0 // STATUS: ONLINE</div>
+            <div class="system-tag">SYSTEM: LEGENDARY // KERNEL 2024.1</div>
             
-            <h1>Happy Birthday, <br><span class="blue-text">Mom!</span></h1>
+            <h1>Happy Birthday, <br><span class="blue-glow">Mom!</span></h1>
             
-            <p class="sub-text">Detected: The world's most incredible mother.</p>
+            <p class="sub-text">Detected: The world's most incredible mother. <br> Optimizing happiness levels...</p>
             
             <button class="aqua-btn" onclick="startExperience()">INITIALIZE PARTY.exe</button>
             
             <div class="player-status">
-                <div style="display: flex; justify-content: space-between; align-items: center; color: #004d7a; font-weight: bold; font-size: 13px;">
-                    <span>🎵 Mom's Theme</span>
-                    <span id="status-tag" style="background:rgba(255,255,255,0.5); padding: 2px 10px; border-radius: 10px; font-size: 10px;">READY</span>
+                <div style="display: flex; justify-content: space-between; align-items: center; color: #004d7a; font-weight: bold; font-size: 14px;">
+                    <span>🎵 Aero_Theme.wav</span>
+                    <span id="status-tag" style="background:rgba(255,255,255,0.6); padding: 3px 12px; border-radius: 12px; font-size: 10px;">READY</span>
                 </div>
                 <div class="progress-bg"><div class="progress-fill" id="fill"></div></div>
             </div>
@@ -152,42 +160,41 @@
         const statusTag = document.getElementById('status-tag');
         const win = document.getElementById('main-win');
 
-        // 1. THE BIG START
         function startExperience() {
-            // Play Music
+            // Trigger Music
             music.play().then(() => {
                 statusTag.innerText = "PLAYING";
                 statusTag.style.color = "#448800";
             }).catch(e => {
-                statusTag.innerText = "CLICK AGAIN";
+                statusTag.innerText = "ERROR - CLICK AGAIN";
             });
 
-            // Explosion of Bubbles and Butterflies
-            for(let i=0; i<60; i++) {
-                setTimeout(() => spawn('bubble'), i * 50);
-                if(i % 10 === 0) spawn('butterfly');
+            // Explosion of Particles
+            for(let i=0; i<70; i++) {
+                setTimeout(() => spawn('bubble'), i * 40);
+                if(i % 12 === 0) spawn('butterfly');
             }
 
-            // Screen Flash
+            // High-End Flash Effect
             const f = document.createElement('div');
             f.style.cssText = "position:fixed;top:0;left:0;width:100%;height:100%;background:white;z-index:2000;opacity:0.8;";
             document.body.appendChild(f);
-            gsap.to(f, { opacity: 0, duration: 1.5, onComplete: () => f.remove() });
+            gsap.to(f, { opacity: 0, duration: 2, onComplete: () => f.remove() });
         }
 
-        // 2. MUSIC PROGRESS
+        // Music Progress Logic
         music.ontimeupdate = () => {
             if (music.duration) {
                 fill.style.width = (music.currentTime / music.duration) * 100 + "%";
             }
         };
 
-        // 3. PARTICLE ENGINE
+        // Particle Engine
         function spawn(type) {
             const p = document.createElement('div');
             p.className = type;
             if(type === 'bubble') {
-                const s = Math.random() * 60 + 10 + 'px';
+                const s = Math.random() * 60 + 15 + 'px';
                 p.style.width = s; p.style.height = s;
             } else {
                 p.innerHTML = '🦋';
@@ -198,23 +205,23 @@
             
             gsap.to(p, {
                 y: '-120vh',
-                x: '+=200',
-                rotation: type === 'butterfly' ? 360 : 0,
-                duration: Math.random() * 6 + 5,
+                x: '+=250',
+                rotation: type === 'butterfly' ? 720 : 0,
+                duration: Math.random() * 8 + 6,
                 ease: "none",
                 onComplete: () => p.remove()
             });
         }
 
-        // 4. 3D TILT EFFECT
+        // Mouse 3D Tilt Effect
         document.addEventListener('mousemove', (e) => {
-            const x = (window.innerWidth / 2 - e.pageX) / 40;
-            const y = (window.innerHeight / 2 - e.pageY) / 40;
-            gsap.to(win, { rotationY: x, rotationX: -y, duration: 0.8 });
+            const x = (window.innerWidth / 2 - e.pageX) / 45;
+            const y = (window.innerHeight / 2 - e.pageY) / 45;
+            gsap.to(win, { rotationY: x, rotationX: -y, duration: 1 });
         });
 
-        // Slow background bubbles
-        setInterval(() => spawn('bubble'), 2000);
+        // Slow ambient background bubbles
+        setInterval(() => spawn('bubble'), 1800);
     </script>
 </body>
 </html>
