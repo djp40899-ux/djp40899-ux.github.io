@@ -3,106 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Mom!</title>
+    <title>Happy Birthday Mom! | Aero Pro</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
-        /* FORCE THE COLORS */
-        :root {
-            --sky: #0072ff;
-            --horizon: #ffffff;
-            --grass: #4db300;
-            --aqua: linear-gradient(to bottom, #7ddfff 0%, #35b3ff 45%, #0080ff 50%, #005fcc 100%);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
+        /* 1. THE NUCLEAR BACKGROUND FIX */
         body, html { 
-            width: 100%; height: 100%; 
-            font-family: 'Segoe UI', sans-serif; 
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
             overflow: hidden;
-            /* HARDCODED SKY */
-            background: linear-gradient(to bottom, var(--sky) 0%, #00c6ff 45%, var(--horizon) 50%, var(--grass) 50%, #2d5a27 100%);
+            /* High-Res Bliss Image - This replaces the white screen */
+            background: url('https://images.wallpapersden.com/image/download/windows-xp-bliss-4k_bWlpZ2uUmZqaraWkpJRmbmdlrWlnZ2U.jpg') no-repeat center center fixed;
+            background-size: cover;
         }
 
-        /* THE GREEN HILL (Skeuomorphic) */
-        .hill {
-            position: fixed;
-            bottom: -20%; left: -10%;
-            width: 120%; height: 70%;
-            background: radial-gradient(circle at 50% 0%, #8cc63f 0%, #4db300 70%);
-            border-radius: 50% 50% 0 0;
-            z-index: -1;
-            box-shadow: inset 0 30px 60px rgba(255,255,255,0.4);
+        /* 2. OVERLAY TO MAKE IT POP */
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(0,120,215,0.2) 0%, transparent 100%);
+            z-index: 1;
         }
 
-        /* DESKTOP VIEW */
+        /* 3. CENTERED DESKTOP */
         .desktop { 
+            position: relative;
             height: 100vh; width: 100vw;
             display: flex; justify-content: center; align-items: center; 
-            perspective: 1000px;
+            perspective: 1200px; 
             z-index: 10;
         }
 
-        /* CLEARER GLASS WINDOW */
+        /* 4. TRUE GLASS (Lower opacity so the background shows through) */
         .window {
-            width: 90%; max-width: 750px; 
-            min-height: 480px;
-            /* Reduced opacity so you can see the background behind it */
-            background: rgba(255, 255, 255, 0.2); 
-            backdrop-filter: blur(25px) saturate(200%);
-            -webkit-backdrop-filter: blur(25px) saturate(200%);
-            border: 2px solid rgba(255, 255, 255, 0.6);
-            border-radius: 30px; 
-            box-shadow: 0 40px 100px rgba(0,0,0,0.3);
+            width: 85%; max-width: 800px;
+            background: rgba(255, 255, 255, 0.15); /* Very transparent */
+            backdrop-filter: blur(15px); /* Moderate blur */
+            -webkit-backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            border-radius: 25px; 
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3), inset 0 0 20px rgba(255,255,255,0.4);
             display: flex; flex-direction: column; 
-            justify-content: center; align-items: center;
-            padding: 40px;
-            text-align: center;
+            align-items: center; justify-content: center;
+            padding: 50px; text-align: center;
+            transform-style: preserve-3d;
         }
 
+        /* Typography */
         h1 { 
             font-size: clamp(2.5rem, 8vw, 5rem); 
-            color: #003366; 
+            color: #ffffff; 
             font-weight: 800; 
-            text-shadow: 0 2px 20px rgba(255,255,255,0.8);
-            margin-bottom: 10px;
+            text-shadow: 0 2px 15px rgba(0,0,0,0.4);
+            margin: 0; line-height: 1.1;
         }
+        .blue-glow { color: #00e5ff; text-shadow: 0 0 20px rgba(0,229,255,0.6); }
 
         .sub-text {
-            color: #002b4d; font-size: 1.2rem; margin-bottom: 30px;
+            color: #ffffff; font-size: 1.2rem; margin: 20px 0 30px;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.5);
         }
 
         /* ICONIC AQUA BUTTON */
         .aqua-btn {
             padding: 20px 60px; 
-            background: var(--aqua);
-            border: 1px solid #004488; 
-            border-radius: 50px; 
-            color: white; font-weight: bold; font-size: 1.6rem; 
-            cursor: pointer;
-            box-shadow: 0 15px 30px rgba(0,80,255,0.4), inset 0 2px 4px white;
-            transition: 0.2s;
+            background: linear-gradient(to bottom, #7ddfff 0%, #0080ff 50%, #005fcc 100%);
+            border: 1px solid #004488; border-radius: 50px; 
+            color: white; font-weight: bold; font-size: 1.5rem; 
+            cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.3), inset 0 2px 3px white;
+            transition: 0.3s;
         }
-
-        .aqua-btn:hover { transform: scale(1.05); filter: brightness(1.1); }
+        .aqua-btn:hover { transform: scale(1.05); filter: brightness(1.2); }
 
         /* MINI PLAYER */
         .player-status {
-            background: rgba(255,255,255,0.4); border-radius: 15px;
-            padding: 12px 20px; width: 280px; margin-top: 30px;
-            border: 1px solid rgba(255,255,255,0.5);
+            background: rgba(0,0,0,0.2); border-radius: 15px;
+            padding: 12px 25px; width: 300px; margin-top: 30px;
+            border: 1px solid rgba(255,255,255,0.3); color: white;
         }
+        .progress-bg { height: 8px; background: rgba(255,255,255,0.2); border-radius: 4px; overflow: hidden; margin-top: 10px; }
+        .progress-fill { width: 0%; height: 100%; background: #00ffcc; box-shadow: 0 0 10px #00ffcc; }
 
-        .progress-bg { height: 8px; background: rgba(0,0,0,0.1); border-radius: 4px; overflow: hidden; margin-top: 8px; }
-        .progress-fill { width: 0%; height: 100%; background: #00d2ff; box-shadow: 0 0 10px #00d2ff; }
-
-        /* BUBBLES */
-        .bubble { position: absolute; border-radius: 50%; background: radial-gradient(circle at 30% 30%, white, rgba(255,255,255,0.1)); border: 1px solid rgba(255,255,255,0.4); pointer-events: none; }
+        .bubble { position: absolute; border-radius: 50%; background: radial-gradient(circle at 30% 30%, white, rgba(255,255,255,0.1)); border: 1px solid #fff; pointer-events: none; z-index: 100; }
     </style>
 </head>
 <body>
 
-    <div class="hill"></div>
+    <div class="overlay"></div>
     <div id="particle-field"></div>
 
     <audio id="bg-music">
@@ -111,16 +96,15 @@
 
     <div class="desktop">
         <div class="window" id="main-win">
-            <p style="color: #2d5a27; font-weight: bold; letter-spacing: 3px; font-size: 0.8rem;">AERO SYSTEM PRO</p>
-            <h1>Happy Birthday, <br><span style="color: #0080ff;">Mom!</span></h1>
-            <p class="sub-text">World's #1 Mother Detected. Initializing...</p>
+            <h1 id="title">Happy Birthday, <br><span class="blue-glow">Mom!</span></h1>
+            <p class="sub-text">Detected: The world's most incredible mother.</p>
             
             <button class="aqua-btn" onclick="startExperience()">INITIALIZE PARTY.exe</button>
             
             <div class="player-status">
-                <div style="display: flex; justify-content: space-between; font-size: 11px; color: #004d7a; font-weight: bold;">
+                <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: bold;">
                     <span>🎵 Aero_Theme.wav</span>
-                    <span id="status-tag">READY</span>
+                    <span id="status">READY</span>
                 </div>
                 <div class="progress-bg"><div class="progress-fill" id="fill"></div></div>
             </div>
@@ -130,18 +114,17 @@
     <script>
         const music = document.getElementById('bg-music');
         const fill = document.getElementById('fill');
-        const statusTag = document.getElementById('status-tag');
+        const statusText = document.getElementById('status');
         const win = document.getElementById('main-win');
 
         function startExperience() {
-            music.play().then(() => {
-                statusTag.innerText = "PLAYING";
-            });
+            music.play().then(() => { statusText.innerText = "PLAYING"; });
 
-            for(let i=0; i<50; i++) {
+            for(let i=0; i<60; i++) {
                 setTimeout(() => spawnBubble(), i * 40);
             }
 
+            // White Flash
             const f = document.createElement('div');
             f.style.cssText = "position:fixed;top:0;left:0;width:100%;height:100%;background:white;z-index:2000;opacity:0.8;";
             document.body.appendChild(f);
@@ -157,18 +140,18 @@
         function spawnBubble() {
             const p = document.createElement('div');
             p.className = 'bubble';
-            const s = Math.random() * 50 + 10 + 'px';
+            const s = Math.random() * 60 + 10 + 'px';
             p.style.width = s; p.style.height = s;
             p.style.left = Math.random() * 100 + 'vw';
             p.style.top = '110vh';
             document.getElementById('particle-field').appendChild(p);
-            gsap.to(p, { y: '-120vh', x: '+=100', duration: Math.random() * 5 + 5, onComplete: () => p.remove() });
+            gsap.to(p, { y: '-120vh', x: '+=150', duration: Math.random() * 6 + 4, ease: "none", onComplete: () => p.remove() });
         }
 
         document.addEventListener('mousemove', (e) => {
-            const x = (window.innerWidth / 2 - e.pageX) / 50;
-            const y = (window.innerHeight / 2 - e.pageY) / 50;
-            gsap.to(win, { rotationY: x, rotationX: -y, duration: 1 });
+            const x = (window.innerWidth / 2 - e.pageX) / 45;
+            const y = (window.innerHeight / 2 - e.pageY) / 45;
+            gsap.to(win, { rotationY: x, rotationX: -y, duration: 0.8 });
         });
     </script>
 </body>
