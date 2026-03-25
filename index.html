@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Mom | The Portfolio</title>
+    <!-- Modern Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Animation Libraries -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Canvas for Particle Background (The 'Incredible' Factor) -->
+    <canvas id="canvas-stars"></canvas>
+
+    <nav>
+        <div class="logo">MOM.2024</div>
+        <div class="nav-links">
+            <a href="#about">Legacy</a>
+            <a href="#powers">Superpowers</a>
+            <a href="#gallery">Moments</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <h1 data-aos="zoom-out" data-aos-duration="2000">The Legend of <br><span class="highlight">[Mom's Name]</span></h1>
+        <p class="subtitle" data-aos="fade-up" data-aos-delay="500">A Lifetime of Excellence & Love.</p>
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <!-- SUPERPOWERS (The "Skills" Section) -->
+    <section id="powers" class="powers-grid">
+        <div class="section-title" data-aos="fade-right">Core Competencies</div>
+        <div class="power-card" data-aos="fade-up">
+            <span class="stat">99%</span>
+            <h3>Master Chef</h3>
+            <p>Unmatched ability to turn 3 random ingredients into a 5-star meal.</p>
+        </div>
+        <div class="power-card" data-aos="fade-up" data-aos-delay="100">
+            <span class="stat">∞</span>
+            <h3>Heart Healer</h3>
+            <p>Specializes in fixing bad days with a single hug or phone call.</p>
+        </div>
+        <div class="power-card" data-aos="fade-up" data-aos-delay="200">
+            <span class="stat">10/10</span>
+            <h3>Chief Negotiator</h3>
+            <p>Decades of experience resolving sibling disputes and managing chaos.</p>
+        </div>
+    </section>
+
+    <!-- TIMELINE SECTION -->
+    <section id="about" class="timeline">
+        <h2 data-aos="fade-up">The Journey So Far</h2>
+        <div class="timeline-item" data-aos="fade-left">
+            <div class="year">19XX</div>
+            <div class="content">The Icon is Born. The world changed for the better.</div>
+        </div>
+        <div class="timeline-item" data-aos="fade-right">
+            <div class="year">20XX</div>
+            <div class="content">First Day of Motherhood. A new era of "CEO of the House" began.</div>
+        </div>
+        <div class="timeline-item" data-aos="fade-left">
+            <div class="year">TODAY</div>
+            <div class="content">Celebrating your best year yet. Happy Birthday!</div>
+        </div>
+    </section>
+
+    <!-- FINAL MESSAGE -->
+    <footer class="final-message">
+        <h2 data-aos="flip-up">To the world, you are a mother.<br>To us, you are the world.</h2>
+        <button class="celebrate-btn" onclick="launchConfetti()">Click to Celebrate</button>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: false });
+
+        function launchConfetti() {
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#FFD700', '#FFFFFF', '#FF69B4']
+            });
+        }
+    </script>
+</body>
+</html>
